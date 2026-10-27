@@ -1,0 +1,43 @@
+# Helpers for the bill counter and per-event sub-metering. Full restart needed.
+
+input_number:
+  water_bill_start:
+    name: Water Bill Start Reading
+    unit_of_measurement: "L"
+    min: 0
+    max: 99999999
+    step: 0.01
+  washing_machine_start_reading:
+    name: Washing Machine Start Reading
+    unit_of_measurement: "L"
+    min: 0
+    max: 999999
+    step: 0.1
+  washing_machine_last_usage:
+    name: Washing Machine Last Usage
+    unit_of_measurement: "m³"
+    min: 0
+    max: 999999
+    step: 0.0001
+  shower_master_ensuite_start_reading:
+    name: Shower Master En-Suite Start Reading
+    unit_of_measurement: "L"
+    min: 0
+    max: 999999
+    step: 0.1
+  shower_master_ensuite_last_usage:
+    name: Shower Master En-Suite Last Usage
+    unit_of_measurement: "m³"
+    min: 0
+    max: 999999
+    step: 0.0001
+  shower_master_ensuite_baseline_humidity:
+    name: Shower Master En-Suite Baseline Humidity
+    min: 0
+    max: 100
+    step: 0.1
+  shower_master_ensuite_confirmed:
+    name: Shower Master En-Suite Confirmed
+    min: 0
+    max: 1
+    step: 1

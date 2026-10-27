@@ -1,0 +1,111 @@
+type: vertical-stack
+grid_options:
+  columns: full
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: entities
+        title: Water status
+        card_mod:
+          style: |
+            #states > * {
+              margin-top: -2px !important;
+              margin-bottom: -2px !important;
+            }
+        entities:
+          - type: conditional
+            conditions:
+              - condition: numeric_state
+                entity: sensor.utility_room_esp32_utility_room_meter_stats_error_code_status
+                below: 0.5
+            row:
+              type: text
+              name: Status
+              icon: mdi:water-check
+              text: Normal
+          - type: conditional
+            conditions:
+              - condition: not
+                conditions:
+                  - condition: numeric_state
+                    entity: sensor.utility_room_esp32_utility_room_meter_stats_error_code_status
+                    below: 0.5
+            row:
+              type: text
+              name: Status
+              icon: mdi:water-alert
+              text: Check meter
+          - entity: sensor.esp32_utility_room_mains_water_pressure_2
+            name: Pressure
+          - entity: sensor.utility_room_esp32_utility_room_mains_water_flow
+            name: Flow
+          - entity: sensor.utility_room_esp32_utility_room_meter_stats_signal_quality
+            name: Quality
+          - entity: sensor.utility_room_esp32_utility_room_meter_stats_travel_time_ratio
+            name: TT Ratio
+          - entity: sensor.utility_room_esp32_utility_room_meter_stats_fluid_sound_speed
+            name: Sound Speed
+      - type: entities
+        title: Water bill
+        entities:
+          - entity: sensor.water_since_last_bill
+            name: Used
+          - entity: sensor.water_cost_since_last_bill
+            name: Usage £
+          - entity: sensor.water_cost_this_quarter
+            name: Quarter £
+          - type: button
+            name: New bill
+            icon: mdi:receipt-text
+            action_name: START
+            tap_action:
+              action: perform-action
+              perform_action: script.turn_on
+              target:
+                entity_id: script.water_new_bill_starts_now
+              confirmation:
+                text: Start a new bill period from now?
+  - type: custom:apexcharts-card
+    header:
+      show: true
+      title: Water draws (litres each, 24 h)
+    graph_span: 1d
+    apex_config:
+      chart:
+        height: 170
+      plotOptions:
+        bar:
+          colors:
+            ranges:
+              - from: 0
+                to: 79.99
+                color: "#4caf50"
+              - from: 80
+                to: 169.99
+                color: "#ffc107"
+              - from: 170
+                to: 1000
+                color: "#f44336"
+    series:
+      - entity: sensor.utility_room_esp32_utility_room_last_draw_volume
+        type: column
+        group_by:
+          func: raw
+  - type: custom:apexcharts-card
+    header:
+      show: true
+      title: Water pressure (24 h)
+    graph_span: 24h
+    apex_config:
+      chart:
+        height: 140
+    yaxis:
+      - decimals: 2
+    series:
+      - entity: sensor.esp32_utility_room_mains_water_pressure_2
+        name: Pressure (bar)
+        type: line
+        stroke_width: 2
+        group_by:
+          func: avg
+          duration: 5min

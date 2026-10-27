@@ -1,0 +1,18 @@
+phase,date,tap,setting,true_litres,duration_s,true_lmin,meter_raw_litres,ratio,meter_flow_lmin,tracker_litres,peak_lmin,notes
+A,2026-10-22,sink,2/3 open,16,207,4.64,6.53,0.408,1.89,,,old zero; Re ~1800; pipe factor 0.75
+A,2026-10-22,sink,low,10,247,2.43,3.42,0.342,0.83,,,old zero; Re 700-800
+A,2026-10-22,sink,low,16,323,2.97,6.00,0.375,1.12,,,old zero; Re ~1000
+A,2026-10-22,sink,full,16,123,7.80,7.769,0.486,,,,old zero; repeat runs 0.4375-0.4875
+B,2026-10-22,sink,2/3 open,16,208,4.62,7.03,0.439,2.03,,,after M43 reset + M42 set zero
+B,2026-10-22,sink,full,16,115,8.35,5.98,0.374,3.12,,,M23 = TS-2 type test (sensors not moved) - rejected
+B,2026-10-22,sink,full,16,,7.80,7.60,0.475,,,,Standard S restored
+C,2026-10-23,sink,low,10,203,2.96,4.08,0.408,,9.1,,
+C,2026-10-23,sink,low,10,238,2.52,4.10,0.410,,9.1,,
+C,2026-10-23,sink,2/3 open,10,148,4.05,4.40,0.440,,9.7,,
+C,2026-10-23,sink,full,10,73.5,8.16,4.69,0.469,,10.4,9.5,
+C,2026-10-23,outside,part,20,160,7.50,8.85,0.4425,,19.6,10.4,
+C,2026-10-23,outside,more,20,107,11.20,9.70,0.485,,22.1,14.1,older firmware
+C,2026-10-23,outside,more,20,97,12.40,10.21,0.511,,,16.0,
+C,2026-10-23,outside,near full,21,68,18.50,10.84,0.516,9.56,,22.7,meter flow saturated
+C,2026-10-23,outside,full,21.75,63,20.70,9.79,0.450,9.32,,24.7,meter flow saturated
+C,2026-10-23,outside,full,20,57,21.05,9.07,0.4535,9.55,,23.9,meter flow saturated; confirms top-end dip

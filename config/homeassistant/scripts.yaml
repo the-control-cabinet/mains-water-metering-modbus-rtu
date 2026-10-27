@@ -1,0 +1,12 @@
+# Script "Water - new bill starts now" (entity script.water_new_bill_starts_now).
+# Press on the day of each meter read: copies the running total into input_number.water_bill_start.
+
+water_new_bill_starts_now:
+  alias: Water - new bill starts now
+  sequence:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.water_bill_start
+      data:
+        value: "{{ states('sensor.utility_room_esp32_utility_room_mains_water_used') | float(0) }}"
+  mode: single

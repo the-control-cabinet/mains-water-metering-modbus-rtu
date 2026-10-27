@@ -1,0 +1,153 @@
+# Home Assistant template sensors for the water project.
+# Paste under the single `template:` key in configuration.yaml (merge with any you already have).
+# Reload: Developer tools > YAML > Template entities (no restart needed).
+#
+# Entity IDs assume the ESPHome device is named "ESP32 Utility Room" in an area called "Utility Room".
+# Check yours in Developer tools > States and search/replace if they differ.
+#
+# Tariff (Yorkshire Water, from my bill - use your own rates):
+#   water     £2.1838 per m³
+#   sewerage  £2.9761 per m³ on 95% of water volume
+#   fixed     £13.52 water + £8.46 sewerage + £21.36 surface water = £43.34 per quarter
+#   => variable cost ≈ £5.0111 per m³ = £0.005011 per litre
+#
+# Sub-metering sensors reference MY Zigbee device IDs (vibration, motion, humidity, garden taps):
+# replace them with your own.
+
+template:
+  - sensor:
+      - name: "Water Cost Today"
+        unique_id: water_cost_today
+        unit_of_measurement: "£"
+        state: >
+          {% set usage = (states('sensor.water_daily') | float(0)) / 1000 %}
+          {% set water = usage * 2.1838 %}
+          {% set sewerage = (usage * 0.95) * 2.9761 %}
+          {{ (water + sewerage) | round(3) }}
+
+      - name: "Water Cost This Month"
+        unique_id: water_cost_this_month
+        unit_of_measurement: "£"
+        state: >
+          {% set usage = (states('sensor.water_monthly') | float(0)) / 1000 %}
+          {% set water = usage * 2.1838 %}
+          {% set sewerage = (usage * 0.95) * 2.9761 %}
+          {{ (water + sewerage) | round(2) }}
+
+      - name: "Water Cost This Quarter"
+        unique_id: water_cost_this_quarter
+        unit_of_measurement: "£"
+        state: >
+          {% set usage = (states('sensor.water_quarterly') | float(0)) / 1000 %}
+          {% set water = usage * 2.1838 %}
+          {% set sewerage = (usage * 0.95) * 2.9761 %}
+          {% set fixed = 13.52 + 8.46 + 21.36 %}
+          {{ (water + sewerage + fixed) | round(2) }}
+
+      - name: "Current Draw Cost"
+        unique_id: current_draw_cost
+        unit_of_measurement: "£"
+        availability: "{{ has_value('sensor.utility_room_esp32_utility_room_current_draw_volume') }}"
+        state: >
+          {% set usage = (states('sensor.utility_room_esp32_utility_room_current_draw_volume') | float(0)) / 1000 %}
+          {{ (usage * 2.1838 + usage * 0.95 * 2.9761) | round(3) }}
+
+      - name: "Last Draw Cost"
+        unique_id: last_draw_cost
+        unit_of_measurement: "£"
+        availability: "{{ has_value('sensor.utility_room_esp32_utility_room_last_draw_volume') }}"
+        state: >
+          {% set usage = (states('sensor.utility_room_esp32_utility_room_last_draw_volume') | float(0)) / 1000 %}
+          {% set water = usage * 2.1838 %}
+          {% set sewerage = (usage * 0.95) * 2.9761 %}
+          {{ (water + sewerage) | round(3) }}
+
+      - name: "Water Since Last Bill"
+        unique_id: water_since_last_bill
+        unit_of_measurement: "L"
+        state: >
+          {{ [ (states('sensor.utility_room_esp32_utility_room_mains_water_used') | float(0))
+               - (states('input_number.water_bill_start') | float(0)), 0 ] | max | round(1) }}
+
+      - name: "Water Cost Since Last Bill"
+        unique_id: water_cost_since_last_bill
+        unit_of_measurement: "£"
+        state: >
+          {% set usage = (states('sensor.water_since_last_bill') | float(0)) / 1000 %}
+          {{ (usage * 2.1838 + usage * 0.95 * 2.9761) | round(2) }}
+
+      - name: "Washing Machine Current Usage"
+        unit_of_measurement: "m³"
+        state: >
+          {% if is_state('binary_sensor.washing_machine_running', 'on') %}
+            {{ (((states('sensor.utility_room_esp32_utility_room_mains_water_used') | float(0)) - (states('input_number.washing_machine_start_reading') | float(0))) / 1000) | round(3) }}
+          {% else %}
+            {{ states('input_number.washing_machine_last_usage') | float(0) | round(3) }}
+          {% endif %}
+
+      - name: "Shower Master En-Suite Last Usage"
+        unit_of_measurement: "m³"
+        state: "{{ states('input_number.shower_master_ensuite_last_usage') | float(0) | round(3) }}"
+
+      - name: "Washing Machine Last Usage Cost"
+        unit_of_measurement: "£"
+        state: >
+          {% set usage = states('input_number.washing_machine_last_usage') | float(0) %}
+          {% set water = usage * 2.1838 %}
+          {% set sewerage = (usage * 0.95) * 2.9761 %}
+          {{ (water + sewerage) | round(2) }}
+
+      - name: "Washing Machine Last Usage"
+        unit_of_measurement: "m³"
+        state: "{{ states('input_number.washing_machine_last_usage') | float(0) | round(3) }}"
+
+      - name: "Shower Master En-Suite Last Usage Cost"
+        unit_of_measurement: "£"
+        state: >
+          {% set usage = states('input_number.shower_master_ensuite_last_usage') | float(0) %}
+          {% set water = usage * 2.1838 %}
+          {% set sewerage = (usage * 0.95) * 2.9761 %}
+          {{ (water + sewerage) | round(2) }}
+
+      - name: "Shower Master En-Suite Current Usage"
+        unit_of_measurement: "m³"
+        state: >
+          {% if is_state('binary_sensor.master_en_suite_shower_running', 'on') %}
+            {{ (((states('sensor.utility_room_esp32_utility_room_mains_water_used') | float(0)) - (states('input_number.shower_master_ensuite_start_reading') | float(0))) / 1000) | round(3) }}
+          {% else %}
+            0
+          {% endif %}
+
+      - name: "Shower Master En-Suite Current Cost"
+        unit_of_measurement: "£"
+        state: >
+          {% if is_state('binary_sensor.master_en_suite_shower_running', 'on') %}
+            {% set usage = ((states('sensor.utility_room_esp32_utility_room_mains_water_used') | float(0)) - (states('input_number.shower_master_ensuite_start_reading') | float(0))) / 1000 %}
+            {% set water = usage * 2.1838 %}
+            {% set sewerage = (usage * 0.95) * 2.9761 %}
+            {{ (water + sewerage) | round(2) }}
+          {% else %}
+            0
+          {% endif %}
+
+  - binary_sensor:
+      - name: "Washing Machine Running"
+        delay_on:
+          minutes: 2
+        delay_off:
+          minutes: 10
+        state: "{{ is_state('binary_sensor.vibration_sensor_utility_room_washing_machine_vibration', 'on') }}"
+      - name: "Master En-Suite Shower Running"
+        delay_on:
+          seconds: 30
+        delay_off:
+          minutes: 2
+        # corrected flow in real L/min: above 3.0 L/min counts as the shower running
+        state: >
+          {{ is_state('binary_sensor.sonoff_motion_sensor_3pr2_master_en_suite_occupancy', 'on') and
+             (states('sensor.utility_room_esp32_utility_room_mains_water_flow') | float(0)) > 3.0 and
+             is_state('binary_sensor.washing_machine_running', 'off') and
+             (states('sensor.back_garden_tap_real_time_irrigation_volume') | float(0)) == 0 and
+             (states('sensor.side_garden_tap_real_time_irrigation_volume') | float(0)) == 0 }}
+      - name: "Master En-Suite Humidity Spike Confirmed"
+        state: "{{ states('input_number.shower_master_ensuite_confirmed') | float(0) == 1 }}"

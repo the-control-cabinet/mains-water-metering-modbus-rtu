@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Segoe UI,Helvetica,Arial,sans-serif">
+<rect width="100%" height="100%" fill="#f6f8fa"/>
+<text x="20" y="32" font-size="18" font-weight="600" fill="#24292f">Water view (Sections, max_columns: 3) - layout schematic</text>
+<rect x="20" y="55" width="560" height="445" rx="10" fill="#fff" stroke="#d0d7de"/>
+<text x="32" y="77" font-size="13" fill="#57606a">Section 1 · column_span 2 · Gauge Card Pro</text>
+<text x="32" y="104" font-size="13" font-weight="600" fill="#24292f">Current draw</text>
+<rect x="32" y="112" width="126" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M67.2,164.0 A28,28 0 0,1 81.2,139.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M81.2,139.8 A28,28 0 0,1 109.2,139.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M109.2,139.8 A28,28 0 0,1 123.2,164.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="95.2" y1="164.0" x2="81.2" y2="142.0" stroke="#24292f" stroke-width="2"/>
+<text x="95.2" y="127" font-size="11" text-anchor="middle" fill="#57606a">Volume</text>
+<rect x="168" y="112" width="126" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M203.8,164.0 A28,28 0 0,1 217.8,139.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M217.8,139.8 A28,28 0 0,1 245.8,139.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M245.8,139.8 A28,28 0 0,1 259.8,164.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="231.8" y1="164.0" x2="217.8" y2="142.0" stroke="#24292f" stroke-width="2"/>
+<text x="231.8" y="127" font-size="11" text-anchor="middle" fill="#57606a">Cost</text>
+<rect x="305" y="112" width="126" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M340.2,164.0 A28,28 0 0,1 354.2,139.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M354.2,139.8 A28,28 0 0,1 382.2,139.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M382.2,139.8 A28,28 0 0,1 396.2,164.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="368.2" y1="164.0" x2="354.2" y2="142.0" stroke="#24292f" stroke-width="2"/>
+<text x="368.2" y="127" font-size="11" text-anchor="middle" fill="#57606a">Time</text>
+<rect x="442" y="112" width="126" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M476.8,164.0 A28,28 0 0,1 490.8,139.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M490.8,139.8 A28,28 0 0,1 518.8,139.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M518.8,139.8 A28,28 0 0,1 532.8,164.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="504.8" y1="164.0" x2="490.8" y2="142.0" stroke="#24292f" stroke-width="2"/>
+<text x="504.8" y="127" font-size="11" text-anchor="middle" fill="#57606a">Flow</text>
+<text x="32" y="206" font-size="13" font-weight="600" fill="#24292f">Last draw</text>
+<rect x="32" y="214" width="126" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M67.2,266.0 A28,28 0 0,1 81.2,241.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M81.2,241.8 A28,28 0 0,1 109.2,241.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M109.2,241.8 A28,28 0 0,1 123.2,266.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="95.2" y1="266.0" x2="81.2" y2="244.0" stroke="#24292f" stroke-width="2"/>
+<text x="95.2" y="229" font-size="11" text-anchor="middle" fill="#57606a">Volume</text>
+<rect x="168" y="214" width="126" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M203.8,266.0 A28,28 0 0,1 217.8,241.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M217.8,241.8 A28,28 0 0,1 245.8,241.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M245.8,241.8 A28,28 0 0,1 259.8,266.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="231.8" y1="266.0" x2="217.8" y2="244.0" stroke="#24292f" stroke-width="2"/>
+<text x="231.8" y="229" font-size="11" text-anchor="middle" fill="#57606a">Cost</text>
+<rect x="305" y="214" width="126" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M340.2,266.0 A28,28 0 0,1 354.2,241.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M354.2,241.8 A28,28 0 0,1 382.2,241.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M382.2,241.8 A28,28 0 0,1 396.2,266.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="368.2" y1="266.0" x2="354.2" y2="244.0" stroke="#24292f" stroke-width="2"/>
+<text x="368.2" y="229" font-size="11" text-anchor="middle" fill="#57606a">Duration</text>
+<rect x="442" y="214" width="126" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M476.8,266.0 A28,28 0 0,1 490.8,241.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M490.8,241.8 A28,28 0 0,1 518.8,241.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M518.8,241.8 A28,28 0 0,1 532.8,266.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="504.8" y1="266.0" x2="490.8" y2="244.0" stroke="#24292f" stroke-width="2"/>
+<text x="504.8" y="229" font-size="11" text-anchor="middle" fill="#57606a">Peak flow</text>
+<text x="32" y="308" font-size="13" font-weight="600" fill="#24292f">Totals - volume</text>
+<rect x="32" y="316" width="172" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M90.0,368.0 A28,28 0 0,1 104.0,343.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M104.0,343.8 A28,28 0 0,1 132.0,343.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M132.0,343.8 A28,28 0 0,1 146.0,368.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="118.0" y1="368.0" x2="104.0" y2="346.0" stroke="#24292f" stroke-width="2"/>
+<text x="118.0" y="331" font-size="11" text-anchor="middle" fill="#57606a">Today</text>
+<rect x="214" y="316" width="172" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M272.0,368.0 A28,28 0 0,1 286.0,343.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M286.0,343.8 A28,28 0 0,1 314.0,343.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M314.0,343.8 A28,28 0 0,1 328.0,368.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="300.0" y1="368.0" x2="286.0" y2="346.0" stroke="#24292f" stroke-width="2"/>
+<text x="300.0" y="331" font-size="11" text-anchor="middle" fill="#57606a">Month</text>
+<rect x="396" y="316" width="172" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M454.0,368.0 A28,28 0 0,1 468.0,343.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M468.0,343.8 A28,28 0 0,1 496.0,343.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M496.0,343.8 A28,28 0 0,1 510.0,368.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="482.0" y1="368.0" x2="468.0" y2="346.0" stroke="#24292f" stroke-width="2"/>
+<text x="482.0" y="331" font-size="11" text-anchor="middle" fill="#57606a">Quarter</text>
+<text x="32" y="410" font-size="13" font-weight="600" fill="#24292f">Totals - cost</text>
+<rect x="32" y="418" width="172" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M90.0,470.0 A28,28 0 0,1 104.0,445.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M104.0,445.8 A28,28 0 0,1 132.0,445.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M132.0,445.8 A28,28 0 0,1 146.0,470.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="118.0" y1="470.0" x2="104.0" y2="448.0" stroke="#24292f" stroke-width="2"/>
+<text x="118.0" y="433" font-size="11" text-anchor="middle" fill="#57606a">£ Today</text>
+<rect x="214" y="418" width="172" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M272.0,470.0 A28,28 0 0,1 286.0,445.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M286.0,445.8 A28,28 0 0,1 314.0,445.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M314.0,445.8 A28,28 0 0,1 328.0,470.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="300.0" y1="470.0" x2="286.0" y2="448.0" stroke="#24292f" stroke-width="2"/>
+<text x="300.0" y="433" font-size="11" text-anchor="middle" fill="#57606a">£ Month</text>
+<rect x="396" y="418" width="172" height="68" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<path d="M454.0,470.0 A28,28 0 0,1 468.0,445.8" stroke="#4caf50" stroke-width="7" fill="none"/>
+<path d="M468.0,445.8 A28,28 0 0,1 496.0,445.8" stroke="#ffc107" stroke-width="7" fill="none"/>
+<path d="M496.0,445.8 A28,28 0 0,1 510.0,470.0" stroke="#f44336" stroke-width="7" fill="none"/>
+<line x1="482.0" y1="470.0" x2="468.0" y2="448.0" stroke="#24292f" stroke-width="2"/>
+<text x="482.0" y="433" font-size="11" text-anchor="middle" fill="#57606a">£ Quarter</text>
+<rect x="600" y="55" width="280" height="445" rx="10" fill="#fff" stroke="#d0d7de"/>
+<text x="612" y="77" font-size="13" fill="#57606a">Section 2 · column_span 1</text>
+<rect x="612" y="90" width="123" height="150" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<text x="620" y="108" font-size="12" font-weight="600" fill="#24292f">Water status</text>
+<text x="620" y="129" font-size="11" fill="#57606a">Status: Normal</text>
+<text x="620" y="147" font-size="11" fill="#57606a">Pressure</text>
+<text x="620" y="165" font-size="11" fill="#57606a">Flow</text>
+<text x="620" y="183" font-size="11" fill="#57606a">Quality</text>
+<text x="620" y="201" font-size="11" fill="#57606a">TT Ratio</text>
+<text x="620" y="219" font-size="11" fill="#57606a">Sound Speed</text>
+<rect x="745" y="90" width="123" height="150" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<text x="753" y="108" font-size="12" font-weight="600" fill="#24292f">Water bill</text>
+<text x="753" y="129" font-size="11" fill="#57606a">Used</text>
+<text x="753" y="147" font-size="11" fill="#57606a">Usage £</text>
+<text x="753" y="165" font-size="11" fill="#57606a">Quarter £</text>
+<text x="753" y="183" font-size="11" fill="#57606a">[ New bill ]</text>
+<rect x="612" y="252" width="256" height="115" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<text x="620" y="270" font-size="12" font-weight="600" fill="#24292f">Water draws (L each, 24 h)</text>
+<rect x="624" y="352" width="11" height="4" fill="#4caf50"/>
+<rect x="641" y="356" width="11" height="2" fill="#4caf50"/>
+<rect x="658" y="304" width="11" height="52" fill="#ffc107"/>
+<rect x="675" y="354" width="11" height="3" fill="#4caf50"/>
+<rect x="692" y="346" width="11" height="11" fill="#4caf50"/>
+<rect x="709" y="356" width="11" height="1" fill="#4caf50"/>
+<rect x="726" y="321" width="11" height="36" fill="#ffc107"/>
+<rect x="743" y="355" width="11" height="2" fill="#4caf50"/>
+<rect x="760" y="286" width="11" height="71" fill="#f44336"/>
+<rect x="777" y="353" width="11" height="4" fill="#4caf50"/>
+<rect x="794" y="355" width="11" height="2" fill="#4caf50"/>
+<rect x="811" y="334" width="11" height="22" fill="#4caf50"/>
+<rect x="828" y="356" width="11" height="1" fill="#4caf50"/>
+<rect x="845" y="349" width="11" height="8" fill="#4caf50"/>
+<rect x="612" y="379" width="256" height="108" rx="8" fill="#fafbfc" stroke="#e1e4e8"/>
+<text x="620" y="397" font-size="12" font-weight="600" fill="#24292f">Water pressure (24 h)</text>
+<polyline points="624,449 632,440 640,433 648,429 656,424 665,434 672,441 680,450 689,458 697,465 705,469 712,468 721,464 729,450 737,447 745,439 753,432 762,429 769,430 777,435 786,442 794,451 802,454 809,466 818,469 826,468 834,463 842,455 850,446 859,437" fill="none" stroke="#1976d2" stroke-width="2"/>
+<text x="20" y="512" font-size="11" fill="#8c959f">Schematic only - not a screenshot. Values illustrative.</text>
+</svg>

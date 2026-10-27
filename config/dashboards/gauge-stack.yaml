@@ -1,0 +1,358 @@
+type: vertical-stack
+grid_options:
+  columns: full
+cards:
+  - type: heading
+    heading: Current draw
+  - type: grid
+    columns: 4
+    square: false
+    cards:
+      - type: custom:gauge-card-pro
+        entity: sensor.utility_room_esp32_utility_room_current_draw_volume
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 80 -%}{%- set r = 170 -%}{%- set m = 250 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.1f' | format(states(entity) | float(0)) }}"
+            unit_of_measurement: L
+        titles:
+          primary:
+            value: Volume
+      - type: custom:gauge-card-pro
+        entity: sensor.current_draw_cost
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 0.4 -%}{%- set r = 0.85 -%}{%- set m = 1.25 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.2f' | format(states(entity) | float(0)) }}"
+            unit_of_measurement: "£"
+            unit_before_value: true
+        titles:
+          primary:
+            value: Cost
+      - type: custom:gauge-card-pro
+        entity: sensor.utility_room_esp32_utility_room_current_draw_time
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set p = states(entity).split(':') -%}
+          {%- set v = ((p[0] | int(0)) * 60 + (p[1] | int(0))) if p | length == 2 else 0 -%}
+          {%- set a = 300 -%}{%- set r = 630 -%}{%- set m = 930 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ states(entity) }}"
+        titles:
+          primary:
+            value: Time
+      - type: custom:gauge-card-pro
+        entity: sensor.utility_room_esp32_utility_room_mains_water_flow
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 8 -%}{%- set r = 18 -%}{%- set m = 20.1 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.1f' | format(states(entity) | float(0)) }}"
+            unit_of_measurement: L/min
+        titles:
+          primary:
+            value: Flow
+  - type: heading
+    heading: Last draw
+  - type: grid
+    columns: 4
+    square: false
+    cards:
+      - type: custom:gauge-card-pro
+        entity: sensor.utility_room_esp32_utility_room_last_draw_volume
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 80 -%}{%- set r = 170 -%}{%- set m = 250 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.1f' | format(states(entity) | float(0)) }}"
+            unit_of_measurement: L
+        titles:
+          primary:
+            value: Volume
+      - type: custom:gauge-card-pro
+        entity: sensor.last_draw_cost
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 0.4 -%}{%- set r = 0.85 -%}{%- set m = 1.25 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.2f' | format(states(entity) | float(0)) }}"
+            unit_of_measurement: "£"
+            unit_before_value: true
+        titles:
+          primary:
+            value: Cost
+      - type: custom:gauge-card-pro
+        entity: sensor.utility_room_esp32_utility_room_last_draw_duration
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set t = states(entity) -%}
+          {%- set n = t | regex_findall('[0-9]+') | map('int') | list -%}
+          {%- set v = (n[0] * 60 + n[1]) if ('min' in t and n | length >= 2) else (n[0] if n | length >= 1 else 0) -%}
+          {%- set a = 300 -%}{%- set r = 630 -%}{%- set m = 930 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: >-
+              {%- set t = states(entity) -%}
+              {%- set n = t | regex_findall('[0-9]+') | map('int') | list -%}
+              {%- set s = (n[0] * 60 + n[1]) if ('min' in t and n | length >= 2) else (n[0] if n | length >= 1 else 0) -%}
+              {{ '%d:%02d' | format(s // 60, s % 60) }}
+        titles:
+          primary:
+            value: Time
+      - type: custom:gauge-card-pro
+        entity: sensor.utility_room_esp32_utility_room_last_draw_peak_flow
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 8 -%}{%- set r = 18 -%}{%- set m = 20.1 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.1f' | format(states(entity) | float(0)) }}"
+            unit_of_measurement: L/min
+        titles:
+          primary:
+            value: Peak Flow
+  - type: heading
+    heading: Totals
+  - type: grid
+    columns: 3
+    square: false
+    cards:
+      - type: custom:gauge-card-pro
+        entity: sensor.today_s_water_usage_rounded
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 550 -%}{%- set r = 900 -%}{%- set m = 1200 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.0f' | format(states(entity) | float(0)) }}"
+            unit_of_measurement: L
+        titles:
+          primary:
+            value: Today
+      - type: custom:gauge-card-pro
+        entity: sensor.water_monthly
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 16500 -%}{%- set r = 27000 -%}{%- set m = 36000 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.1f' | format((states(entity) | float(0)) / 1000) }}"
+            unit_of_measurement: m³
+        titles:
+          primary:
+            value: This Month
+      - type: custom:gauge-card-pro
+        entity: sensor.water_quarterly
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 50600 -%}{%- set r = 82800 -%}{%- set m = 110400 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.1f' | format((states(entity) | float(0)) / 1000) }}"
+            unit_of_measurement: m³
+        titles:
+          primary:
+            value: This Quarter
+  - type: grid
+    columns: 3
+    square: false
+    cards:
+      - type: custom:gauge-card-pro
+        entity: sensor.water_cost_today
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 2.75 -%}{%- set r = 4.5 -%}{%- set m = 6.0 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.2f' | format(states(entity) | float(0)) }}"
+            unit_of_measurement: "£"
+            unit_before_value: true
+        titles:
+          primary:
+            value: Cost Today
+      - type: custom:gauge-card-pro
+        entity: sensor.water_cost_this_month
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 82.7 -%}{%- set r = 135.3 -%}{%- set m = 180.4 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.2f' | format(states(entity) | float(0)) }}"
+            unit_of_measurement: "£"
+            unit_before_value: true
+        titles:
+          primary:
+            value: Cost This Month
+      - type: custom:gauge-card-pro
+        entity: sensor.water_cost_this_quarter
+        min: 0
+        max: 100
+        needle: true
+        value: >-
+          {%- set v = states(entity) | float(0) -%}
+          {%- set a = 296.9 -%}{%- set r = 458.3 -%}{%- set m = 596.6 -%}
+          {{ (33.33 * ((v / a) | sqrt)) if v <= a else ((33.33 + (v - a) / (r - a) * 33.33) if v <= r else ([66.66 + (v - r) / (m - r) * 33.34, 100] | min)) }}
+        segments:
+          - from: 0
+            color: "#4caf50"
+          - from: 33.33
+            color: "#ffc107"
+          - from: 66.66
+            color: "#f44336"
+        value_texts:
+          primary:
+            value: "{{ '%.2f' | format(states(entity) | float(0)) }}"
+            unit_of_measurement: "£"
+            unit_before_value: true
+        titles:
+          primary:
+            value: Cost This Quarter

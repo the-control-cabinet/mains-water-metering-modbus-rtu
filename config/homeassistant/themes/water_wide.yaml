@@ -1,0 +1,7 @@
+# Raises the Sections-view column cap (~500 px) so the gauge section can be wide.
+# Needs in configuration.yaml:
+#   frontend:
+#     themes: !include_dir_merge_named themes
+# Then Developer tools > Actions > frontend.reload_themes, and set `theme: water_wide` on the view.
+water_wide:
+  ha-view-sections-column-max-width: 800px

@@ -1,0 +1,29 @@
+# Utility meters on the corrected litres total. unique_id is required to set display precision in the UI.
+# Needs a FULL restart after adding/changing.
+# To zero them (e.g. after the source changes), Developer tools > Actions:
+#   action: utility_meter.calibrate
+#   target: {entity_id: [sensor.water_daily, sensor.water_weekly, sensor.water_monthly, sensor.water_quarterly, sensor.water_yearly]}
+#   data: {value: "0"}
+# (utility_meter.reset only works with tariffs.)
+
+utility_meter:
+  water_daily:
+    source: sensor.utility_room_esp32_utility_room_mains_water_used
+    cycle: daily
+    unique_id: water_daily_meter
+  water_weekly:
+    source: sensor.utility_room_esp32_utility_room_mains_water_used
+    cycle: weekly
+    unique_id: water_weekly_meter
+  water_monthly:
+    source: sensor.utility_room_esp32_utility_room_mains_water_used
+    cycle: monthly
+    unique_id: water_monthly_meter
+  water_quarterly:
+    source: sensor.utility_room_esp32_utility_room_mains_water_used
+    cycle: quarterly
+    unique_id: water_quarterly_meter
+  water_yearly:
+    source: sensor.utility_room_esp32_utility_room_mains_water_used
+    cycle: yearly
+    unique_id: water_yearly_meter

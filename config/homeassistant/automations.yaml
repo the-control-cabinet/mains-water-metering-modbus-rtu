@@ -1,0 +1,130 @@
+# Automations (built in the UI; this is the YAML view of each).
+# Paste into automations.yaml or recreate in Settings > Automations (Edit in YAML).
+# notify.your_phone = the NOTIFY ENTITY of your phone (Developer tools > States, search "notify.").
+# It is used with action notify.send_message + target entity_id. The legacy notify.mobile_app_* service
+# name does NOT work with this action (it fails silently).
+
+- id: water_shower_master_capture_start
+  alias: Shower Master En-Suite - Capture Start
+  triggers:
+    - entity_id: binary_sensor.master_en_suite_shower_running
+      to: 'on'
+      trigger: state
+  actions:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.shower_master_ensuite_start_reading
+      data:
+        value: >-
+          {{ states('sensor.utility_room_esp32_utility_room_mains_water_used') | float(0) }}
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.shower_master_ensuite_baseline_humidity
+      data:
+        value: '{{ states(''sensor.temp_rh_display_ip66_en_suite_humidity'') | float(0) }}'
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.shower_master_ensuite_confirmed
+      data:
+        value: 0
+  mode: single
+
+- id: water_shower_master_calculate_usage
+  alias: Shower Master En-Suite - Calculate Usage
+  triggers:
+    - entity_id: binary_sensor.master_en_suite_shower_running
+      to: 'off'
+      trigger: state
+  actions:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.shower_master_ensuite_last_usage
+      data:
+        value: >
+          {{ [((states('sensor.utility_room_esp32_utility_room_mains_water_used') | float(0))
+             - (states('input_number.shower_master_ensuite_start_reading') | float(0))) / 1000, 0] | max | round(4) }}
+  mode: single
+
+- id: water_shower_master_humidity_confirm
+  alias: Shower Master En-Suite - Humidity Confirmation
+  triggers:
+    - entity_id: sensor.temp_rh_display_ip66_en_suite_humidity
+      trigger: state
+  conditions:
+    - condition: state
+      entity_id: binary_sensor.master_en_suite_shower_running
+      state: 'on'
+    - condition: template
+      value_template: |
+        {{ (states('sensor.temp_rh_display_ip66_en_suite_humidity') | float(0)) -
+           (states('input_number.shower_master_ensuite_baseline_humidity') | float(0)) >= 10 }}
+  actions:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.shower_master_ensuite_confirmed
+      data:
+        value: 1
+  mode: single
+
+- id: water_washing_machine_capture_start
+  alias: Washing Machine - Capture Start Reading
+  description: ''
+  triggers:
+    - entity_id: binary_sensor.washing_machine_running
+      to: 'on'
+      trigger: state
+  conditions: []
+  actions:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.washing_machine_start_reading
+      data:
+        value: >-
+          {{ states('sensor.utility_room_esp32_utility_room_mains_water_used') | float(0) }}
+  mode: single
+
+- id: water_washing_machine_calculate_usage
+  alias: Washing Machine - Calculate Usage
+  description: ''
+  triggers:
+    - entity_id: binary_sensor.washing_machine_running
+      to: 'off'
+      trigger: state
+  conditions: []
+  actions:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.washing_machine_last_usage
+      data:
+        value: >
+          {{ [((states('sensor.utility_room_esp32_utility_room_mains_water_used') | float(0))
+             - (states('input_number.washing_machine_start_reading') | float(0))) / 1000, 0] | max | round(4) }}
+  mode: single
+
+- id: water_steady_low_flow_alert
+  alias: Steady low water flow
+  description: Meter flow stuck between 0.15 and 0.9 L/min for 10 minutes
+  triggers:
+    - trigger: numeric_state
+      entity_id: sensor.utility_room_esp32_utility_room_meter_flow_uncorrected
+      above: 0.15
+      below: 0.9
+      for: "00:10:00"
+  actions:
+    - action: notify.send_message
+      target:
+        entity_id: notify.your_phone
+      data:
+        title: Steady low water flow
+        message: >
+          Meter flow has been
+          {{ states('sensor.utility_room_esp32_utility_room_meter_flow_uncorrected') }}
+          L/min for 10 minutes. Meter drift or a slow leak. Do the stopcock test.
+    - action: persistent_notification.create
+      data:
+        title: Steady low water flow
+        message: >
+          The meter has shown
+          {{ states('sensor.utility_room_esp32_utility_room_meter_flow_uncorrected') }}
+          L/min for 10 minutes.
+  mode: single

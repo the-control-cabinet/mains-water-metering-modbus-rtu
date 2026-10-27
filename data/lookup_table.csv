@@ -1,0 +1,9 @@
+meter_lmin,true_lmin,source
+0.15,0.38,extrapolated (dead band edge)
+0.375,0.95,extrapolated
+0.6,1.50,measured
+1.12,2.74,measured
+1.905,4.335,measured
+3.78,7.92,measured
+5.88,11.79,measured
+9.48,20.08,measured (saturation; output clamped above this)
