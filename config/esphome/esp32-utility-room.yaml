@@ -2,7 +2,7 @@
 # esp32-utility-room.yaml - TUF-2000M ultrasonic flow meter + SEN0257 pressure
 # ESPHome 2026.9.x, ESP32-S3-DevKitC-1 (16 MB), ESP-IDF
 #
-# Part of: tuf2000m-esphome-water-monitor  (see README.md and docs/)
+# Part of: mains-water-metering-modbus-rtu  (see README.md and docs/)
 # All credentials are !secret references - copy secrets.example.yaml to
 # /config/esphome/secrets.yaml and fill in your own values.
 #
@@ -66,7 +66,7 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
   ap:
-    ssid: "Utility Room Fallback Hotspot"
+    ssid: !secret utility_room_ap_ssid
     password: !secret utility_room_ap_password   # 8+ characters
 
 captive_portal:
