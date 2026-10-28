@@ -44,13 +44,8 @@ esp32:
 logger:
   hardware_uart: UART0
   deassert_rts_dtr: true
+  level: INFO
 
-mqtt:                             # not used by anything now; delete it if you prefer
-  id: mqtt_client
-  broker: !secret mqtt_broker
-  username: !secret mqtt_username
-  password: !secret mqtt_password
-  keepalive: 60s
 
 api:
   encryption:
@@ -235,6 +230,9 @@ modbus_controller:
     modbus_id: modbus1
     setup_priority: -10
     update_interval: 60s
+
+debug:
+  update_interval: 10s
 
 sensor:
   # --- Raw flow from the meter, m3/h, internal (not shown in HA) ---
@@ -538,6 +536,14 @@ sensor:
     update_interval: 60s
   - platform: uptime
     name: "Utility Room Uptime"
+
+  - platform: debug
+    free:
+      name: "Utility Room Heap Free"
+    block:
+      name: "Utility Room Heap Max Block"
+    loop_time:
+      name: "Utility Room Loop Time"
 
   # --- OPTIONAL, NOT YET FITTED: strap-on 10k NTC on the pipe (3.3 V - 10k - GPIO4 - NTC - GND, 100 nF across NTC) ---
   # - platform: adc

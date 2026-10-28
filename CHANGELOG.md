@@ -33,3 +33,6 @@ How the design evolved. Dates are 2026.
 - Cost sensors, bill-period counter, shower and washing-machine sub-metering, and the steady-low-flow alert added.
 - Dashboard rebuilt as a 3-column Sections view with Gauge Card Pro (square-root green zone), a status and bill column, a draws chart and a pressure trend.
 - Recorder `purge_keep_days: 10`.
+
+## Published configuration
+- **28 Oct:** ESPHome YAML brought in line with the live board: unused MQTT removed, INFO logging, debug sensors (heap, loop time).
