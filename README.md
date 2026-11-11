@@ -118,7 +118,7 @@ flowchart LR
 | Lowest flow counted | About 0.4 L/min (below that is dead band) |
 | Signal quality in service | Q 83-88 %, travel-time ratio 102.9-104.3 % |
 | Modbus reliability | 48/48 flow polls on time over 47 s after the timing fix; no parse failures |
-| Mains pressure | 3.0-4.0 bar; about 0.07 bar sag while drawing |
+| Mains pressure | 3.0-4.0 bar (≈2.9-3.0 bar on November evenings); about 0.07 bar sag while drawing |
 | Real showers measured | 140 L in about 9 min, 200 L in about 12 min (about 16 L/min) |
 
 ![Raw ratio vs flow](docs/images/ratio-vs-flow.png)
@@ -244,6 +244,8 @@ Highlights (full list in [docs/07-roadmap.md](docs/07-roadmap.md)):
 - Sensors-slipped alert (quality, travel-time ratio, strengths, error code).
 - Strap-on NTC for pipe temperature, since the meter's "sound speed" is not a thermometer.
 - Investigate the 3.0-3.6 bar pressure oscillation at rest.
+- Use this meter's flow and pressure to compare the hot water cylinders' PRVs (they settle at ~2.5 bar against ~2.9 bar mains; a 18:31 draw on this meter explained it) and log a week of overnight mains pressure.
+- Mains water temperature NTC (cold feed for the heating repo's hot water estimate).
 - More sub-metering: other showers and the dishwashers.
 
 ## 14. Skills demonstrated (BMS / building automation)
