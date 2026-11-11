@@ -27,11 +27,12 @@
   - overlay the trace with hot-water cylinder heating
   - check the span against a mechanical gauge (new full-scale = 16 × gauge ÷ HA reading)
   - confirm a steady 4.5-5 V supply on the sensor's red wire
-- [ ] Plumber: replace the expansion vessels and relief valves. A tundish drips when the hot water runs, which may be related.
+- [x] ~~Plumber: replace the expansion vessels~~: done 11 Nov (24 L, 3.5 bar; relief valves kept).
+- [ ] **Cylinder PRVs settle at ~2.5 bar** against this meter's ~2.98 bar mains (both marked "pre-set 3.5 bar"); a full-flow kitchen draw dipped the left cylinder to 2.1 bar. Planned: a full-flow hot draw on each side for 30 s, comparing each cylinder's pressure drop against this meter's flow rate (bar per L/min), and a week of overnight mains pressure (does the mains ever exceed 3.5 bar?).
 
 ## Water temperature
 
-- [ ] **Mains water temperature NTC** on the incoming main in the utility (strap-on, lagged, on the utility ESP32-S3's spare ADC1 pin). Seasonal cold-feed temperature (≈8-18 °C), and it replaces the fixed 12 °C cold-inlet value in the [hot water available estimate](https://github.com/the-control-cabinet/heating-plant-monitoring-esphome/blob/main/docs/14-hot-water-stratification.md).
+- [ ] **Mains water temperature NTC** on the incoming main in the utility (strap-on, lagged, on the utility ESP32-S3's spare ADC1 pin). Seasonal cold-feed temperature (≈8-18 °C), captured during draws of 30-60 s (the pipe drifts to room temperature at rest), replacing the cold-feed helper (14 °C in November) in the [hot water available estimate](https://github.com/the-control-cabinet/heating-plant-monitoring-esphome/blob/main/docs/14-hot-water-stratification.md).
 
 ## Sub-metering
 

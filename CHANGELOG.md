@@ -3,6 +3,7 @@
 How the design evolved. Dates are 2026.
 
 ## Hardware and comms
+- **11 Nov (evening):** this meter's flow and pressure used to diagnose the cylinders: a 1-1.5 L draw at 18:31 explained a cylinder settling at ~2.5 bar (PRVs); flow added to the hot water card to mark draws; roadmap: PRV comparison and overnight mains pressure.
 - **11 Nov:** roadmap: mains water temperature NTC (cold-feed temperature, also feeding the heating repo's hot water estimate).
 - **Sep:** TUF-2000M Modbus link proven on the utility-room ESP32-S3 (MAX485, 9600 8N1, slave 1). SEN0257 pressure sensor selected and plumbed using a BSP tee and a Dowty washer.
 - **5 Oct:** pressure sensor moved to GPIO9 (ADC1). Formula corrected to the 16 bar full scale.
