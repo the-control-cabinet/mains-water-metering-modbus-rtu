@@ -29,6 +29,10 @@
   - confirm a steady 4.5-5 V supply on the sensor's red wire
 - [ ] Plumber: replace the expansion vessels and relief valves. A tundish drips when the hot water runs, which may be related.
 
+## Water temperature
+
+- [ ] **Mains water temperature NTC** on the incoming main in the utility (strap-on, lagged, on the utility ESP32-S3's spare ADC1 pin). Seasonal cold-feed temperature (≈8-18 °C), and it replaces the fixed 12 °C cold-inlet value in the [hot water available estimate](https://github.com/the-control-cabinet/heating-plant-monitoring-esphome/blob/main/docs/14-hot-water-stratification.md).
+
 ## Sub-metering
 
 - [ ] Second shower: copy the master en-suite pattern with that room's motion and humidity sensors.

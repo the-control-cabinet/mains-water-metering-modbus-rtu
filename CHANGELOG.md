@@ -3,6 +3,7 @@
 How the design evolved. Dates are 2026.
 
 ## Hardware and comms
+- **11 Nov:** roadmap: mains water temperature NTC (cold-feed temperature, also feeding the heating repo's hot water estimate).
 - **Sep:** TUF-2000M Modbus link proven on the utility-room ESP32-S3 (MAX485, 9600 8N1, slave 1). SEN0257 pressure sensor selected and plumbed using a BSP tee and a Dowty washer.
 - **5 Oct:** pressure sensor moved to GPIO9 (ADC1). Formula corrected to the 16 bar full scale.
 - **5-8 Oct:** ESPHome secrets migrated to `/config/esphome/secrets.yaml`.
