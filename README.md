@@ -116,9 +116,10 @@ flowchart LR
 | Corrected accuracy, fast draws (about 20 L/min) | **±8 %**; flows above about 20 L/min read as 20 |
 | Very short, fast draws (< 40 s) | Up to 11-12 % low (start/end edge effects) |
 | Lowest flow counted | About 0.4 L/min (below that is dead band) |
-| Signal quality in service | Q 83-88 %, travel-time ratio 102.9-104.3 % |
+| Signal quality in service | Q 83-88 %, travel-time ratio 102.9-104.3 % (autumn); **108-109 % during cold draws in November**, outside the ±3 % window ([doc 08](docs/08-cold-water-temperature-and-cross-check.md)) |
+| Smart-meter cross-check | **~50 % low on 12 Nov** (≈480 L vs 958 L) as the mains cooled: under investigation ([doc 08](docs/08-cold-water-temperature-and-cross-check.md)) |
 | Modbus reliability | 48/48 flow polls on time over 47 s after the timing fix; no parse failures |
-| Mains pressure | 3.0-4.0 bar (≈2.9-3.0 bar on November evenings); about 0.07 bar sag while drawing |
+| Mains pressure | 3.0-4.0 bar (≈2.9-3.0 bar on November evenings); about 0.07 bar sag on small draws, **~0.5-0.6 bar at shower flows** (7-9 L/min) |
 | Real showers measured | 140 L in about 9 min, 200 L in about 12 min (about 16 L/min) |
 
 ![Raw ratio vs flow](docs/images/ratio-vs-flow.png)
@@ -228,10 +229,12 @@ This project is documented on my YouTube channel **[The Control Cabinet](https:/
 │   ├── 05-home-assistant-integration.md
 │   ├── 06-issues-and-lessons-learned.md
 │   ├── 07-roadmap.md
+│   ├── 08-cold-water-temperature-and-cross-check.md
 │   └── images/
 ├── config/
 │   ├── esphome/        esp32-utility-room.yaml, secrets.example.yaml
-│   ├── homeassistant/  templates, utility_meter, input_number, automations, scripts, themes/
+│   ├── homeassistant/  templates, utility_meter, input_number, automations, scripts, themes/,
+│   │                   water_meter_crosscheck.yaml, water_tariff.yaml
 │   └── dashboards/     water-view.yaml (complete), gauge-stack.yaml, right-column.yaml
 └── data/               calibration_runs.csv, lookup_table.csv, verification_draws.csv
 ```
@@ -240,11 +243,11 @@ This project is documented on my YouTube channel **[The Control Cabinet](https:/
 
 Highlights (full list in [docs/07-roadmap.md](docs/07-roadmap.md)):
 
-- Cross-check daily totals against the Yorkshire Water smart meter once activated, and scale the table if there is a consistent bias.
+- **Cold water (Nov 2026):** the cross-check shows the meter reading ~50 % low as the mains cools; one-off spacing/pipe-settings check, then a correction against the travel-time ratio ([doc 08](docs/08-cold-water-temperature-and-cross-check.md)).
 - Sensors-slipped alert (quality, travel-time ratio, strengths, error code).
 - Strap-on NTC for pipe temperature, since the meter's "sound speed" is not a thermometer.
 - Investigate the 3.0-3.6 bar pressure oscillation at rest.
-- Use this meter's flow and pressure to compare the hot water cylinders' PRVs (they settle at ~2.5 bar against ~2.9 bar mains; a 18:31 draw on this meter explained it) and log a week of overnight mains pressure.
+- Use this meter's flow and pressure to compare the hot water cylinders' pressure reducing valves (they settle at ~2.5 bar against ~2.9 bar mains; a 18:31 draw on this meter explained it) and log a week of overnight mains pressure.
 - Mains water temperature NTC (cold feed for the heating repo's hot water estimate).
 - More sub-metering: other showers and the dishwashers.
 

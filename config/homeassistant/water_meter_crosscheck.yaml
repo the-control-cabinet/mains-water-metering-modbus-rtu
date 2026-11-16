@@ -1,0 +1,47 @@
+# Cross-check of the TUF-2000M ultrasonic meter against Yorkshire Water's smart meter (13 Nov 2026).
+# Yorkshire Water's daily reading arrives with a ~4-day lag (integration dan-simms1/ha-yorkshire-water),
+# so the TUF's daily total (utility meter sensor.water_daily, litres, resets at midnight) is recorded
+# each night at 23:59:50 and kept for 14 days; the comparison matches the date of YW's latest reading.
+# Note: the YW entity IDs contain the account reference; keep them out of published material.
+
+template:
+  - trigger:
+      - platform: time
+        at: "23:59:50"
+    sensor:
+      - name: "TUF daily totals"
+        unique_id: tuf_daily_totals
+        unit_of_measurement: "L"
+        icon: mdi:water-check
+        state: "{{ states('sensor.water_daily') | float(0) | round(1) }}"
+        attributes:
+          history: >
+            {% set old = this.attributes.history if this.attributes is defined and this.attributes.history is defined else [] %}
+            {% set today = now().strftime('%Y-%m-%d') %}
+            {% set kept = old | rejectattr('0', 'eq', today) | list %}
+            {{ (kept + [[today, states('sensor.water_daily') | float(0) | round(1)]])[-14:] }}
+
+  - sensor:
+      - name: "Water meter cross-check"
+        unique_id: water_meter_crosscheck_tuf_vs_yw
+        unit_of_measurement: "%"
+        icon: mdi:scale-balance
+        state: >
+          {% set yw = states('sensor.<yw_account_ref>_latest_daily_consumption') | float(0) %}
+          {% set d = state_attr('sensor.<yw_account_ref>_latest_daily_consumption', 'reading_date') %}
+          {% set hist = state_attr('sensor.tuf_daily_totals', 'history') or [] %}
+          {% set match = hist | selectattr('0', 'eq', d | string) | list %}
+          {% if yw > 0 and match | count > 0 %}
+            {{ ((match[0][1] - yw) / yw * 100) | round(1) }}
+          {% else %}
+            unknown
+          {% endif %}
+        attributes:
+          reading_date: "{{ state_attr('sensor.<yw_account_ref>_latest_daily_consumption', 'reading_date') }}"
+          yorkshire_water_litres: "{{ states('sensor.<yw_account_ref>_latest_daily_consumption') }}"
+          tuf_litres: >
+            {% set d = state_attr('sensor.<yw_account_ref>_latest_daily_consumption', 'reading_date') %}
+            {% set hist = state_attr('sensor.tuf_daily_totals', 'history') or [] %}
+            {% set match = hist | selectattr('0', 'eq', d | string) | list %}
+            {{ match[0][1] if match | count > 0 else 'not recorded (TUF history starts 13 Nov 2026)' }}
+          meaning: "Positive = the TUF reads higher than Yorkshire Water's meter for that day"

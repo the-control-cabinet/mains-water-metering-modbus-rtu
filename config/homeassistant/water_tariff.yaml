@@ -1,0 +1,93 @@
+# Water tariff (Yorkshire Water, metered household), 13 Nov 2026.
+# Every water cost sensor reads these helpers, so a tariff change is one edit here in the UI.
+# Rates change each 1 April: an automation reminds you to update them from the bill or
+# https://www.yorkshirewater.com/bill-account/how-we-work-out-your-bill/customers-with-a-meter/
+# 2026/27 values: water 218.38p/m3; sewerage (foul + highway drainage) 297.61p/m3 on 95 % of the water;
+# standing charges per year: water 54.10 + sewerage 33.85 + surface water 85.47 = 173.42.
+
+input_number:
+  water_tariff_water_per_m3:
+    name: "Water tariff: water (£/m³)"
+    min: 0
+    max: 10
+    step: 0.0001
+    mode: box
+    unit_of_measurement: "£/m³"
+    icon: mdi:water
+  water_tariff_sewerage_per_m3:
+    name: "Water tariff: sewerage (£/m³)"
+    min: 0
+    max: 10
+    step: 0.0001
+    mode: box
+    unit_of_measurement: "£/m³"
+    icon: mdi:water-pump
+  water_tariff_sewerage_return:
+    name: "Water tariff: sewerage return factor"
+    min: 0
+    max: 1
+    step: 0.01
+    mode: box
+    icon: mdi:percent
+  water_tariff_standing_per_year:
+    name: "Water tariff: standing charges (£/year)"
+    min: 0
+    max: 1000
+    step: 0.01
+    mode: box
+    unit_of_measurement: "£"
+    icon: mdi:calendar-cash
+
+automation:
+  # Helpers start at 0 when first created: fill in the 2026/27 values once (after that, your edits are kept).
+  - id: water_tariff_set_defaults
+    alias: "Water tariff: set 2026/27 defaults if unset"
+    mode: single
+    trigger:
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: automation_reloaded
+    condition:
+      - condition: template
+        value_template: "{{ states('input_number.water_tariff_water_per_m3') | float(0) == 0 }}"
+    action:
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.water_tariff_water_per_m3
+        data:
+          value: 2.1838
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.water_tariff_sewerage_per_m3
+        data:
+          value: 2.9761
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.water_tariff_sewerage_return
+        data:
+          value: 0.95
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.water_tariff_standing_per_year
+        data:
+          value: 173.42
+
+  - id: water_tariff_april_reminder
+    alias: "Water tariff: April reminder"
+    mode: single
+    trigger:
+      - platform: time
+        at: "09:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ now().month == 4 and now().day == 2 }}"
+    action:
+      - service: notify.mobile_app_jamess_iphone
+        data:
+          title: "Water tariff: new rates from 1 April"
+          message: >
+            Yorkshire Water's charges change on 1 April. Update the four "Water tariff" helpers
+            (water and sewerage £/m³, sewerage return factor, standing charges per year) from the bill or
+            yorkshirewater.com → Customers with a meter. Current: water £{{ states('input_number.water_tariff_water_per_m3') }},
+            sewerage £{{ states('input_number.water_tariff_sewerage_per_m3') }}, standing £{{ states('input_number.water_tariff_standing_per_year') }}/year.

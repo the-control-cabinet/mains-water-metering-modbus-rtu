@@ -28,7 +28,7 @@
   - check the span against a mechanical gauge (new full-scale = 16 × gauge ÷ HA reading)
   - confirm a steady 4.5-5 V supply on the sensor's red wire
 - [x] ~~Plumber: replace the expansion vessels~~: done 11 Nov (24 L, 3.5 bar; relief valves kept).
-- [ ] **Cylinder PRVs settle at ~2.5 bar** against this meter's ~2.98 bar mains (both marked "pre-set 3.5 bar"); a full-flow kitchen draw dipped the left cylinder to 2.1 bar. Planned: a full-flow hot draw on each side for 30 s, comparing each cylinder's pressure drop against this meter's flow rate (bar per L/min), and a week of overnight mains pressure (does the mains ever exceed 3.5 bar?).
+- [ ] **Cylinder pressure reducing valves settle at ~2.5 bar** against this meter's ~2.98 bar mains (both marked "pre-set 3.5 bar"); a full-flow kitchen draw dipped the left cylinder to 2.1 bar. Planned: a full-flow hot draw on each side for 30 s, comparing each cylinder's pressure drop against this meter's flow rate (bar per L/min), and a week of overnight mains pressure (does the mains ever exceed 3.5 bar?).
 
 ## Water temperature
 
