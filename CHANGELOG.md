@@ -3,6 +3,7 @@
 How the design evolved. Dates are 2026.
 
 ## Hardware and comms
+- **16-17 Nov:** SEN0257 pressure calibrated at the pin (ESP32 ADC ~15 mV low, gain ~0.2 %; divider 0.662; zero 0.480 V; net +0.025 bar at 3 bar); 10 µF at GPIO9 (noise 25-45 % lower); span confirmed without a reference gauge from the 5.87 m height to the cylinder inlets (overnight difference 0.55-0.58 bar = 0.576 bar), so no span gain (doc 04).
 - **13 Nov:** cross-check and tariff packages added (account reference redacted); shower sub-metering fixes (flow keeps it running, humidity confirmation +6, status sensor).
 - **12-16 Nov:** daily cross-check against the water company's smart meter (≈50 % low on 12 Nov); travel-time ratio 102.7 % at rest vs 108-109 % in cold draws; the meter's sound-speed estimate (1,367 m/s) below real cold water; plan: one-off spacing/pipe-settings check, then a ratio-based correction (new doc 08). Mains sag at shower flows ~0.5-0.6 bar (README corrected). Valve names written in full.
 - **11 Nov (evening):** this meter's flow and pressure used to diagnose the cylinders: a 1-1.5 L draw at 18:31 explained a cylinder settling at ~2.5 bar (pressure reducing valves); flow added to the hot water card to mark draws; roadmap: pressure reducing valve comparison and overnight mains pressure.

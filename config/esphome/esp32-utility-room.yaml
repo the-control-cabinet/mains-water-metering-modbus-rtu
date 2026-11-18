@@ -12,8 +12,19 @@
 # =============================================================================
 
 substitutions:
-  pressure_zero_v: "0.454"        # measured at 0 pressure, sensor open to air
-  pressure_full_scale_bar: "16.0" # SEN0257: 0-1.6 MPa
+  # Mains pressure calibration (16 Nov 2026, multimeter at GPIO9, 10 uF fitted GPIO9-GND):
+  #   zero:  meter pin 0.326 V, ESP32 ADC 0.3108 V (stopcock shut, tap open;
+  #          ~0.05 bar of water still stood above the sensor)
+  #   rest:  meter pin 0.821 V, ESP32 ADC 0.805 V
+  # The ESP32 ADC reads a near-constant ~15 mV low (gain error ~0.2 %). The filter below maps the
+  # ESP32 reading onto the meter's pin voltage; the divider ratio is the meter's own (pin / yellow
+  # = 0.662, resistor tolerance). The zero is the open-air reading (0.454 V through the old,
+  # uncorrected path) corrected the same way = 0.480 V. Net effect at ~3 bar: +0.025 bar.
+  # Span check (17 Nov): overnight, mains minus the cylinder inlet = 0.55-0.58 bar = the 5.87 m
+  # height (0.576 bar), so no span gain is needed.
+  pressure_divider_ratio: "0.662"
+  pressure_zero_v: "0.480"        # sensor output at 0 bar (open to air), corrected to the meter
+  pressure_full_scale_bar: "16.0" # SEN0257: 0-1.6 MPa over 0.5-4.5 V (4.0 V span)
   # Flow correction: lookup table in the "Mains Water Flow" sensor below (M45 = 1.5, Standard S, W, 24.41 mm,
   # zero reset done). Re-fit if M45, M41, M42/M43, M23/M24 or the sensors are changed.
   flow_deadband: "0.15"           # meter L/min at or below this counts as zero
@@ -493,6 +504,7 @@ sensor:
     accuracy_decimals: 0
 
   # --- Water pressure: DFRobot SEN0257 (red 5 V, black GND, yellow -> Wago -> 10k -> GPIO9 -> 10k -> GPIO12 pad -> 10k -> GND) ---
+  # 10 uF electrolytic GPIO9 to GND at the pin (16 Nov 2026): night-time noise 25-45 % lower.
   - platform: adc
     pin: GPIO9
     id: pressure_sensor_raw
@@ -501,6 +513,10 @@ sensor:
     samples: 16
     update_interval: 1s
     filters:
+      # ESP32-S3 ADC -> true pin voltage (two-point fit against the multimeter, 16 Nov, 10 uF fitted)
+      - calibrate_linear:
+          - 0.3108 -> 0.326
+          - 0.805 -> 0.821
       - median:
           window_size: 5
           send_every: 1
@@ -517,7 +533,7 @@ sensor:
     update_interval: 5s
     lambda: |-
       if (!id(pressure_sensor_raw).has_state()) return {};
-      return id(pressure_sensor_raw).state / 0.6667;
+      return id(pressure_sensor_raw).state / ${pressure_divider_ratio};
   - platform: template
     name: "Mains Water Pressure"
     id: mains_pressure

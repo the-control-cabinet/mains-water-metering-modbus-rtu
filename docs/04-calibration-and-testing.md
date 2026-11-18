@@ -151,3 +151,23 @@ Eight 10 L draws against the fitted table:
 
 - **Missing-data test:** do a 10 L draw just after a 60 s stats poll. Compare the rise in `Total (Positive)` with `Last Draw Raw Volume`; expect them within about 2 %.
 - **Long-term check:** compare against the water company's dial reading over several weeks.
+
+## Pressure sensor calibration (16-17 Nov 2026)
+
+The flow work above calibrates the TUF-2000M. The SEN0257 pressure channel was checked separately with a multimeter at the ESP32 pin.
+
+| Point | Meter at GPIO9 | ESP32 ADC | Notes |
+|---|---|---|---|
+| Zero: stopcock shut, cold tap open | 0.326 V | 0.3108 V | About 0.05 bar of water still stands above the sensor |
+| Rest: normal mains | 0.821 V | 0.805 V | |
+| Cold tap fully open (not used for the fit) | — | — | Readings taken at different moments under flow; shows a ~0.4 bar draw sag |
+
+**What the numbers say**
+- The ESP32-S3 ADC reads a near-constant **~15 mV low**, with a gain error of only about 0.2 %. An earlier estimate that the ADC explained ~0.1 bar was wrong: the open-air zero was read through the same ADC, so the offset largely cancelled. The net correction at about 3 bar is **+0.025 bar**.
+- The divider measures **0.662**, not the nominal 2/3 (resistor tolerance).
+- Firmware: a two-point `calibrate_linear` (0.3108 → 0.326, 0.805 → 0.821) maps the ADC onto the true pin voltage, the divider uses the measured ratio, and the zero is 0.480 V (the open-air 0.454 V corrected the same way).
+
+**Noise:** a 10 µF electrolytic from GPIO9 to GND at the pin cut the night-time step noise by 25-45 %. What remains (about ±0.02 bar) is mostly real movement in street pressure.
+
+**Span check without a reference gauge:** overnight, once the cylinder inlets have settled to the true supply, mains pressure minus the cylinder inlet pressure is **0.55-0.58 bar**. That matches the measured 5.87 m height between the sensors (0.576 bar), so the SEN0257 span is correct and no span gain is applied. Daytime differences of only 0.37-0.40 bar were the inlet check valves holding recent peaks (the inlet follows the mains up but not down), not a sensor error. The heating repo's doc 17 has the inlet side.
+

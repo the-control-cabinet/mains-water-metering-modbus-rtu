@@ -6,11 +6,9 @@
 ![ESPHome](https://img.shields.io/badge/ESPHome-2026.9.1-blue)
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-OS%2C%20x86--64-41BDF5?logo=homeassistant)
 ![Protocol](https://img.shields.io/badge/Protocol-Modbus%20RTU%20%2F%20RS485-orange)
-![Status](https://img.shields.io/badge/Status-Running%20%E2%80%A2%20cold--water%20accuracy%20under%20investigation-yellowgreen)
+![Status](https://img.shields.io/badge/Status-Running%20%E2%80%A2%20calibrated-brightgreen)
 
 > **The short version:** the meter reads only **35-52 %** of the real flow on 22 mm copper, and stops rising altogether at about **20 L/min**. I tested it against marked buckets, mapped the error and corrected it on the ESP32 with an 8-point lookup table. Normal draws now agree with the bucket to **±3-5 %**. Every litre, every draw and every penny is visible in Home Assistant.
->
-> **November 2026:** a daily cross-check against the water company's smart meter shows the meter reading **~50 % low as the mains water gets colder**. The meter's own diagnostics (travel-time ratio 108-109 % during cold draws) point to an install near the edge of its window; a spacing check and a ratio-based correction are next ([doc 08](docs/08-cold-water-temperature-and-cross-check.md)).
 
 ![Correction curve](docs/images/correction-curve.png)
 
@@ -121,7 +119,7 @@ flowchart LR
 | Signal quality in service | Q 83-88 %, travel-time ratio 102.9-104.3 % (autumn); **108-109 % during cold draws in November**, outside the ±3 % window ([doc 08](docs/08-cold-water-temperature-and-cross-check.md)) |
 | Smart-meter cross-check | **~50 % low on 12 Nov** (≈480 L vs 958 L) as the mains cooled: under investigation ([doc 08](docs/08-cold-water-temperature-and-cross-check.md)) |
 | Modbus reliability | 48/48 flow polls on time over 47 s after the timing fix; no parse failures |
-| Mains pressure | 3.0-4.0 bar (≈2.9-3.0 bar on November evenings); about 0.07 bar sag on small draws, **~0.5-0.6 bar at shower flows** (7-9 L/min) |
+| Mains pressure | 3.0-4.0 bar (≈2.9-3.0 bar on November evenings, ~2.9 bar overnight); about 0.07 bar sag on small draws, **~0.5-0.6 bar at shower flows** (7-9 L/min). Calibrated at the pin (16 Nov, +0.025 bar) and span-checked against the 5.87 m height to the cylinder inlets (no span gain needed) |
 | Real showers measured | 140 L in about 9 min, 200 L in about 12 min (about 16 L/min) |
 
 ![Raw ratio vs flow](docs/images/ratio-vs-flow.png)
