@@ -53,3 +53,21 @@ The README's "about 0.07 bar sag" applies to small draws. At shower flows (7-9 L
 - **Shower running:** motion starts it, flow keeps it running (the motion sensor lost people standing still in the shower: a 6 L "shower").
 - **Humidity confirmation** threshold +10 → +6 points; running stays on only with confirmation, recent motion or within the first 8 min; usage recorded only when confirmed; status sensor (Off / Starting (awaiting humidity) / Running (confirmed)); back-to-back showers keep separate records with the earlier dry-room humidity baseline.
 - First full capture read about half the true flow, consistent with this meter's cold-water shortfall (§1-3).
+
+## 8. Addendum (18-19 Nov 2026): the cross-check fixed, and five days of figures
+
+**Package fix (18 Nov, live):** the cross-check returned the *text* "unknown" when there was nothing to compare, which Home Assistant logged as an invalid state on every reload. It now returns no value instead; the smart meter's `reading_date` is cut to `YYYY-MM-DD` before matching; and the nightly TUF snapshot skips a night with no numeric total instead of recording 0 L. (The published file is updated when the live copy is next exported.)
+
+**TUF as a share of the smart meter's daily figure:**
+
+| Day | TUF ÷ smart meter |
+|---|---|
+| 13 Nov | 43 % |
+| 14 Nov | 37 % |
+| 15 Nov | 43 % |
+| 16 Nov | 39 % (cross-check −61.0 %) |
+| 17 Nov | 52 % (cross-check −48.1 %) |
+
+**17 Nov in detail (from the history):** the 20 L/min cap engaged for 36 s in total; the drift guard never fired; dropouts lasted at most 6 s. The meter's reverse total grew by 163 L, but that is **at-rest jitter around zero**, not lost water (it does make the meter's own today/month totals meaningless). Every draw was counted, but **under-read**, while the travel-time ratio sat at 104-108 % during the morning showers.
+
+**Conclusion unchanged:** the shortfall is a **scale** error that grows as the water cools (§1-3), not missed draws. **Next:** a cold-water bucket test (10 L, three flow rates × three fills, noting the meter's draw volume and raw totaliser each time) to refit the correction table; then the one-off spacing and pipe-settings check; then the temperature/ratio-based correction.
