@@ -56,7 +56,7 @@ The README's "about 0.07 bar sag" applies to small draws. At shower flows (7-9 L
 
 ## 8. Addendum (18-19 Nov 2026): the cross-check fixed, and five days of figures
 
-**Package fix (18 Nov, live):** the cross-check returned the *text* "unknown" when there was nothing to compare, which Home Assistant logged as an invalid state on every reload. It now returns no value instead; the smart meter's `reading_date` is cut to `YYYY-MM-DD` before matching; and the nightly TUF snapshot skips a night with no numeric total instead of recording 0 L. (The published file is updated when the live copy is next exported.)
+**Package fix (18 Nov, live):** the cross-check returned the *text* "unknown" when there was nothing to compare, which Home Assistant logged as an invalid state on every reload. It now returns no value instead; the smart meter's `reading_date` is cut to `YYYY-MM-DD` before matching; and the nightly TUF snapshot skips a night with no numeric total instead of recording 0 L. Published: [`config/homeassistant/water_meter_crosscheck.yaml`](../config/homeassistant/water_meter_crosscheck.yaml) (account reference replaced with `<yw_account_ref>`).
 
 **TUF as a share of the smart meter's daily figure:**
 
